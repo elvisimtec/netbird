@@ -77,12 +77,8 @@ netbird/
 │   ├── configuration.md        # Config reference
 │   ├── operations/             # Backup, upgrade, monitoring, troubleshooting
 │   └── security/               # Hardening, incident response
-├── docker-compose.yml          # PRIMARY — the deployment manifest
-├── config.yaml                 # NetBird server config
-├── dashboard.env               # Dashboard environment variables
-├── proxy.env                   # Proxy environment variables
-├── traefik-dynamic.yaml        # Traefik dynamic config
-├── docker.sh                   # Initial server setup (bilingual BS/EN)
+├── docker-compose.yml          # PRIMARY — the deployment manifest (in repo)
+├── traefik-dynamic.yaml        # Traefik dynamic config (in repo)
 ├── Makefile                    # Operational commands
 ├── AGENTS.md                   # THIS FILE — governance
 ├── CONTRIBUTING.md             # How to contribute
@@ -92,19 +88,24 @@ netbird/
 ├── CHANGELOG.md                # Release history
 ├── .gitignore
 └── .env.example                # Template (no secrets)
+
+# On server only (secrets — gitignored):
+#   config.yaml, dashboard.env, proxy.env, docker.sh, .env
+#   data/ (Docker volume data — gitignored)
 ```
 
 ### Key File Purposes
 
-| File | Purpose | When to Modify |
-|------|---------|----------------|
-| `docker-compose.yml` | Service definitions, networks, volumes | Adding services, changing ports, updating images |
-| `config.yaml` | NetBird server runtime config | Changing auth, store, server settings |
-| `dashboard.env` | Dashboard OIDC and endpoint config | Changing domain, OIDC settings |
-| `proxy.env` | Proxy connection and TLS settings | Changing proxy token, domain |
-| `traefik-dynamic.yaml` | Traefik TCP-level settings | Changing proxy protocol settings |
-| `Makefile` | Operational convenience commands | Adding new operational tasks |
-| `docker.sh` | First-time server setup | Changing Docker install process |
+| File | Location | Purpose | When to Modify |
+|------|----------|---------|----------------|
+| `docker-compose.yml` | **Repo + Server** | Service definitions, networks, volumes | Adding services, changing ports, updating images |
+| `traefik-dynamic.yaml` | **Repo + Server** | Traefik TCP-level settings | Changing proxy protocol settings |
+| `config.yaml` | Server only | NetBird server runtime config | Changing auth, store, server settings |
+| `dashboard.env` | Server only | Dashboard OIDC and endpoint config | Changing domain, OIDC settings |
+| `proxy.env` | Server only | Proxy connection and TLS settings | Changing proxy token, domain |
+| `Makefile` | Repo | Operational convenience commands | Adding new operational tasks |
+| `docker.sh` | Server only | First-time server setup | Changing Docker install process |
+| `data/` | Server only | Docker volume data (gitignored) | Never — managed by Docker |
 
 ---
 
