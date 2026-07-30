@@ -45,6 +45,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SSH key added for `netb4521` user
 - Disk: 4.9 GB / 38 GB (14%)
 
+### Fixed
+- **CI pipeline** — validate and lint jobs now pass correctly
+  - Replaced broken GitHub Action SHA pins (`ibiqlik/action-yamllint`, `DavidAnson/markdownlint-cli2-action`) with inline `pip`/`npm` installs
+  - Validate job now creates stub `config.yaml`/`*.env` files before `docker compose config`
+  - Markdownlint scope narrowed from `**/*.md` to `*.md` + `docs/**/*.md`
+  - Fixed `docker-compose.yml` port indentation (`4→6` spaces, yamllint MD005)
+  - Fixed `.gitlab-ci.yml` YAML syntax error (curly braces in double-quoted string)
+
 ### Repository
 - `docker-compose.yml` and `traefik-dynamic.yaml` added
 - `.env.example` updated with Dashboard, Komodo sections
