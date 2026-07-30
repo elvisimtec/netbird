@@ -21,6 +21,8 @@ NetBird stack je registrovan u Komodo-u sa sljedećom konfiguracijom:
 
 ## Arhitektura
 
+Komodo koristi postojeći Git working tree — **ne mijenja se struktura direktorija**:
+
 ```
 /opt/stacks/netbird/
 ├── docker-compose.yml        ← Iz Git repo-a (Komodo upravlja)
@@ -32,12 +34,15 @@ NetBird stack je registrovan u Komodo-u sa sljedećom konfiguracijom:
 │   ├── netbird/              ← SQLite baze (store.db, idp.db)
 │   ├── letsencrypt/          ← TLS certifikati
 │   └── proxy-certs/          ← Proxy TLS certifikati
-└── scripts/                  ← Iz Git repo-a
+├── resources/                ← Iz Git repo-a
+├── scripts/                  ← Iz Git repo-a
+└── docs/                     ← Iz Git repo-a
 ```
 
 **Važno:** Secret fajlovi (`config.yaml`, `*.env`) i `data/` direktorij su
-gitignored. Komodo Git operacije (pull, refresh, redeploy) ih **ne diraju**.
-Ovo je potvrđeno kao acceptance criterion prije migracije.
+gitignored — standardne Git operacije (pull, checkout) ih **ne diraju**.
+Prije migracije potvrđeno je da Komodo ne radi `git clean -f` niti
+`git reset --hard` koji bi obrisali gitignored fajlove.
 
 ## Svakodnevne Operacije
 

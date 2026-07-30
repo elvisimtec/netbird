@@ -13,25 +13,26 @@
 #   3. Git account "imtec" configured in Komodo for git.imtec.ba
 #   4. Secret files present on server (see "Files NOT in repo" below)
 #
-# Directory structure on server:
+# Directory structure on server (existing, unchanged):
 #   /opt/stacks/netbird/
-#   ├── runtime/           ← Persistent files (NOT in repo)
-#   │   ├── config.yaml
-#   │   ├── dashboard.env
-#   │   ├── proxy.env
-#   │   └── data/          ← Docker volumes (SQLite, certs)
-#   └── backups/           ← Pre-migration backups
+#   ├── docker-compose.yml      ← From Git repo
+#   ├── traefik-dynamic.yaml    ← From Git repo
+#   ├── config.yaml             ← SERVER ONLY (gitignored, secrets)
+#   ├── dashboard.env           ← SERVER ONLY (gitignored, secrets)
+#   ├── proxy.env               ← SERVER ONLY (gitignored, secrets)
+#   └── data/                   ← SERVER ONLY (gitignored, Docker volumes)
+#
+# Komodo uses the existing working tree at /opt/stacks/netbird.
+# Secret files and data/ are gitignored — Git operations do NOT touch them.
 #
 # Files NOT in repo (must exist on server before deploy):
-#   - runtime/config.yaml      NetBird server config with secrets
-#   - runtime/dashboard.env    Dashboard OIDC + endpoint config
-#   - runtime/proxy.env        Proxy connection + TLS config
-#   - runtime/data/            Docker volume data (SQLite store.db, idp.db, certs)
-#
-# Safety guarantees:
-#   - Git pull/refresh/redeploy MUST NOT overwrite runtime/ files
-#   - runtime/ files are gitignored and live outside the repo checkout
-#   - docker-compose.yml uses absolute paths to runtime/
+#   - config.yaml
+#   - dashboard.env
+#   - proxy.env
+#   - data/netbird/store.db
+#   - data/netbird/idp.db
+#   - data/letsencrypt/
+#   - data/proxy-certs/
 
 # ─── Git Repository ───────────────────────────────────────────────────────────
 
@@ -63,7 +64,7 @@ repo = "imtec/netbird"
 branch = "main"
 file_paths = ["docker-compose.yml"]
 project_name = "netbird"            # CRITICAL: must match existing compose project
-run_directory = "/opt/stacks/netbird"  # compose runs from this directory
+run_directory = "/opt/stacks/netbird"  # compose runs from existing working tree
 
 # Manual deploy only — no auto-update, no deploy webhooks
 auto_update = false
