@@ -25,7 +25,8 @@ lint-yaml:
   before_script:
     - pip install yamllint
   script:
-    - yamllint -d "{extends: default, rules: {line-length: disable, document-start: disable, truthy: disable}}" docker-compose.yml config.yaml .gitlab-ci.yml
+    - |
+      yamllint -d "{extends: default, rules: {line-length: disable, document-start: disable, truthy: disable}}" docker-compose.yml config.yaml .gitlab-ci.yml
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "merge_request_event"
 
