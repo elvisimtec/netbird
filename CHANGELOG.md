@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **NetBird upgraded from v0.74.7 to v0.76.0** (via `:latest`)
+  - New: propagated auth grant types for combined server
+  - New: unified admin CLI for self-hosted helpers
+  - New: dashboard_features and agent_network_only account settings
+  - Migration: agent_network_request_usage cost aggregates
+  - No breaking changes for self-hosted deployments
+- Docker Compose: reverted to `:latest` tags (versioned tags not published on Docker Hub)
+
 ### Added
 - Komodo Periphery agent for server management
 - Stack database reference documentation
