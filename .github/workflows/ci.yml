@@ -16,6 +16,14 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+      - name: Create stub config files for validation
+        run: |
+          # Production config files contain secrets and are never committed.
+          # Create minimal stubs so docker compose config can validate syntax.
+          echo "# CI stub — real file is server-only" > config.yaml
+          echo "NB_DOMAIN=ci" > dashboard.env
+          echo "NB_PROXY_TOKEN=ci" > proxy.env
+
       - name: Validate Docker Compose syntax
         run: |
           docker compose -f docker-compose.yml config --quiet
@@ -40,7 +48,9 @@ jobs:
       - name: Lint Markdown files
         uses: DavidAnson/markdownlint-cli2-action@05f32210e844428042e117c0726174daae01ab0a # v19.0.2
         with:
-          globs: '**/*.md'
+          globs: |
+            *.md
+            docs/**/*.md
         continue-on-error: true
 
   check-secrets:
