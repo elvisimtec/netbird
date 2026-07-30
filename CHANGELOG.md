@@ -9,12 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial documentation structure
-- Governance files (CODE_OF_CONDUCT.md, SECURITY.md, CONTRIBUTING.md)
-- GitHub and GitLab CI/CD pipelines
-- Operations documentation (backup, upgrade, monitoring, troubleshooting)
-- Security documentation (hardening, incident response)
-- Makefile for operational commands
+- Komodo Periphery agent for server management
+- Stack database reference documentation
+- Relative volume paths for docker-compose
+
+### Changed
+- Stack relocated from `/home/netb4521/` to `/opt/stacks/netbird/`
+- Docker volumes converted from named volumes to relative bind mounts (`./data/`)
+- `docker-compose.yml` and `traefik-dynamic.yaml` added to repository
+- `.env.example` updated with Dashboard and Komodo sections
+
+### Security
+- SSH key added for `netb4521` user
+- NetBird admin user created (`admin@imtec.ba`)
+- Authentik OIDC integration attempted → **rolled back** to embedded IdP
+  - Root cause: Dex issuer mismatch + public client config incompatible with broker model
+  - Rollback: Restored `idp.db`, `config.yaml`, `dashboard.env` from backup
+  - Exposed `netbird-svc` App password revoked
+
+### Infrastructure
+- NetBird server added to Komodo cluster (Periphery v2.2.0)
+- Docker cleanup: 3.4 GB reclaimed from unused images
+- Journal log cleanup: 2.3 GB reclaimed, retention set to 7 days
 
 ## [1.0.0] - 2025-04-16
 
