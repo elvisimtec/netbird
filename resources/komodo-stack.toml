@@ -9,7 +9,7 @@
 #
 # Prerequisites:
 #   1. Komodo Core running at https://komo-sso.imtec.ba
-#   2. Server "NetBird" registered with Periphery agent
+#   2. Server "netbird" registered with Periphery agent
 #   3. Git account "imtec" configured in Komodo for git.imtec.ba
 #   4. Secret files present on server (see "Files NOT in repo" below)
 #
@@ -41,7 +41,7 @@ name = "netbird-repo"
 description = "NetBird infrastructure — GitLab"
 tags = ["production", "networking", "vpn"]
 [repo.config]
-server = "NetBird"
+server = "netbird"
 repo = "imtec/netbird"
 git_provider = "git.imtec.ba"
 git_account = "imtec"
@@ -57,7 +57,7 @@ tags = ["production", "networking", "sso"]
 deploy = false                      # ⚠️ false for first import — verify first!
 
 [stack.config]
-server = "NetBird"
+server = "netbird"
 git_provider = "git.imtec.ba"
 git_account = "imtec"
 repo = "imtec/netbird"
