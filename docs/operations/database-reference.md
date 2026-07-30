@@ -15,7 +15,7 @@ and user management. Based on reverse-engineering of the production deployment.
 | `GeoIP2-City_*.mmdb` | MaxMind GeoIP database | Binary |
 | `geonames_*.db` | GeoNames location database | SQLite |
 
-Location: `/var/lib/docker/volumes/netb4521_netbird_data/_data/`
+Location: `/var/lib/docker/volumes/netbird_netbird_data/_data/`
 
 ---
 

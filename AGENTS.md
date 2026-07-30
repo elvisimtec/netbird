@@ -11,6 +11,7 @@ infrastructure project.
 - **Project:** NetBird Infrastructure — self-hosted secure private networking
 - **Repository:** `elvisimtec/netbird`
 - **Infrastructure:** Hetzner VPS, Ubuntu 24.04 LTS, Docker Compose
+- **Stack Path:** `/opt/stacks/netbird/`
 - **Domain:** `netb.koorpa.ba`
 - **License:** MIT
 - **Upstream:** [netbirdio/netbird](https://github.com/netbirdio/netbird) (BSD 3-Clause)
