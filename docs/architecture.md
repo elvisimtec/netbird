@@ -157,3 +157,31 @@ All containers use `json-file` driver with rotation:
 - **Health Check:** `http://localhost:9000/health` (NetBird server)
 - **Metrics:** `http://localhost:9090/metrics` (NetBird server, internal only)
 - **Dashboard:** `https://netb.koorpa.ba` (if accessible, system is up)
+
+## Management
+
+### Komodo Periphery
+
+Server je dodat u Komodo klaster za centralizovano upravljanje i monitoring.
+
+| Property | Value |
+|----------|-------|
+| **Core URL** | `https://komo-sso.imtec.ba` |
+| **Server Name** | `netbird` |
+| **Agent** | Komodo Periphery v2.2.0 |
+| **Service** | `periphery.service` (systemd, auto-start) |
+| **Config** | `/etc/komodo/periphery.config.toml` |
+| **Keys** | `/etc/komodo/keys/` (periphery.key, periphery.pub, core.pub) |
+| **Port** | 8120 (inbound, SSL enabled) |
+| **Connection** | Outbound WebSocket → `wss://komo-sso.imtec.ba/ws/periphery` |
+
+```bash
+# Status
+systemctl status periphery
+
+# Logs
+journalctl -u periphery -f
+
+# Restart
+systemctl restart periphery
+```

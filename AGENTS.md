@@ -306,3 +306,4 @@ NetBird component versions are tracked separately in the CHANGELOG.
 
 - **Upstream NetBird:** [github.com/netbirdio/netbird](https://github.com/netbirdio/netbird)
 - **GitLab Mirror:** `elvisimtec/netbird` (GitLab)
+- **Komodo:** `https://komo-sso.imtec.ba` — server management & monitoring
