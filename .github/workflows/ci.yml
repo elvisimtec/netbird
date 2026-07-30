@@ -48,9 +48,7 @@ jobs:
       - name: Lint Markdown files
         uses: DavidAnson/markdownlint-cli2-action@05f32210e844428042e117c0726174daae01ab0a # v19.0.2
         with:
-          globs: |
-            *.md
-            docs/**/*.md
+          globs: '*.md docs/**/*.md'
         continue-on-error: true
 
   check-secrets:
