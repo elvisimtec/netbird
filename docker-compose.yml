@@ -113,7 +113,7 @@ services:
     image: netbirdio/reverse-proxy:latest@sha256:25589a98790d209742896d8f87a882d399619b1f1f43db0412bd1b2631defe9e
     container_name: netbird-proxy
     ports:
-    - 51820:51820/udp
+      - 51820:51820/udp
     restart: unless-stopped
     networks: [netbird]
     depends_on:

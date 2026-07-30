@@ -16,7 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Validate Docker Compose syntax
+      - name: Create stub config files for validation
+        run: |
+          # Production config files contain secrets and are never committed.
+          # Create minimal stubs so docker compose config can validate syntax.
+          echo "# CI stub — real file is server-only" > config.yaml
+          echo "NB_DOMAIN=ci" > dashboard.env
+          echo "NB_PROXY_TOKEN=ci" > proxy.env
+
+      - name: Validate Docker Compose structure
         run: |
           docker compose -f docker-compose.yml config --quiet
         continue-on-error: false
@@ -28,19 +36,27 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Lint YAML files
-        uses: ibiqlik/action-yamllint@2576378a8e2611e9456d2db9e3f0a5fb3c1e266a # v3.1.1
+        run: |
+          pip install yamllint -q
+          cat > .yamllint.yml << 'YAMLEOF'
+          extends: default
+          rules:
+            line-length: disable
+            document-start: disable
+            truthy: disable
+          YAMLEOF
+          yamllint .
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          config_data: |
-            extends: default
-            rules:
-              line-length: disable
-              document-start: disable
-              truthy: disable
+          node-version: "22"
+
+      - name: Install markdownlint-cli2
+        run: npm install --global markdownlint-cli2@0.23.2
 
       - name: Lint Markdown files
-        uses: DavidAnson/markdownlint-cli2-action@05f32210e844428042e117c0726174daae01ab0a # v19.0.2
-        with:
-          globs: '**/*.md'
+        run: markdownlint-cli2 "*.md" "docs/**/*.md"
         continue-on-error: true
 
   check-secrets:
