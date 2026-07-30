@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Docker Compose: reverted to `:latest` tags (versioned tags not published on Docker Hub)
 
 ### Added
+- **Authentik OIDC integration** via Settings → Identity Providers (embedded Dex broker model)
+  - Confidential OIDC client with Client Secret (JWS, no encryption)
+  - Callback: `https://netb.koorpa.ba/oauth2/callback`
+  - Both local and Authentik login available
+  - Root cause fix: removed Encryption Key from Authentik provider to use JWS instead of JWE
 - Komodo Periphery agent for server management
 - Stack database reference documentation
 - Relative volume paths for docker-compose
