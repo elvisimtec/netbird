@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - **UFW firewall activated** — deny incoming, allow only: 2416/tcp, 80/tcp, 443/tcp, 3478/udp, 51820/udp
 - **SSH hardened** — `PasswordAuthentication no`, `PermitRootLogin prohibit-password`, max 3 tries
-- **Secret scan** — confirmed no secrets in git history (config.yaml, proxy.env never committed)
+- **Cert monitoring** — daily cron check for Let's Encrypt expiry (45 days, Sep 14)
+- **Docker images pinned** — `:latest` tags replaced with `:latest@sha256:...` for controlled upgrades
 
 ### Changed
 - **NetBird upgraded from v0.74.7 to v0.76.0** (via `:latest`)
