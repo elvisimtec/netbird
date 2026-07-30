@@ -12,9 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **UFW firewall activated** — deny incoming, allow only: 2416/tcp, 80/tcp, 443/tcp, 3478/udp, 51820/udp
 - **SSH hardened** — `PermitRootLogin prohibit-password`, max 3 tries (password auth retained)
 - **Secret scan** — confirmed no secrets in git history
-- **Auto-backup** — daily cron @ 02:00 UTC, 7-day retention (store.db, idp.db, configs, certs), 60K compressed
-- **Cert monitoring** — daily cron check for Let's Encrypt expiry (45 days, Sep 14)
-- **Docker images pinned** — `:latest` tags replaced with `:latest@sha256:...` for controlled upgrades
+- **Docker hardened** — `icc:false`, `no-new-privileges:true`, `userland-proxy:false`, `live-restore:true`
+- **fail2ban** — SSH brute-force protection on port 2416
+
+### Added
+- **Auto-backup** — daily cron @ 02:00 UTC, 7-day retention
+- **Cert monitoring** — daily cron check for Let's Encrypt expiry
+- **2 GB swap** — swappiness=10
+- **Docker images pinned** — `:latest@sha256:...` for controlled upgrades
+- **Anonymous metrics disabled** — `--disable-anonymous-metrics` flag
 
 ### Changed
 - **NetBird upgraded from v0.74.7 to v0.76.0** (via `:latest`)
