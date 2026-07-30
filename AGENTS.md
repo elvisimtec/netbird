@@ -202,13 +202,15 @@ limits (50 certificates per domain per week). Don't repeatedly restart
 Traefik in quick succession.
 
 ### 4. Docker image tags
-`docker-compose.yml` uses `:latest` tags for NetBird images and `traefik:v3.6`
-pinned version. Changing to `:latest` for Traefik can introduce breaking changes.
-Test Traefik upgrades carefully.
+`docker-compose.yml` uses `:latest@sha256:...` pinned digests for NetBird images
+and `traefik:v3.6` pinned version. Upgrading requires updating digests manually.
+Check release notes before upgrading.
 
 ### 5. Firewall rules
-The server exposes ports 80, 443, 3478/udp, and 51820/udp. Adding new exposed
-ports must be intentional and documented.
+The server has UFW active with only required ports: 80, 443, 2416/tcp, 3478/udp,
+51820/udp. For full protection also configure **Hetzner Cloud Firewall** (blocks
+Docker-published ports that bypass UFW). Adding new exposed ports must be
+intentional and documented.
 
 ### 6. SQLite database
 NetBird uses SQLite as the data store. This is fine for single-server deployment
@@ -218,12 +220,21 @@ but has limitations:
 - Consider migrating to PostgreSQL for multi-server setups
 
 ### 7. SSH configuration
-The server uses a non-standard SSH port (2416) with key-only authentication.
-Password authentication is disabled. Lost SSH keys mean lost access.
+The server uses a non-standard SSH port (2416) with key-based authentication.
+`PermitRootLogin prohibit-password` and `MaxAuthTries 3` are set.
+Password authentication is currently enabled. Lost SSH keys mean lost access.
 
 ### 8. Anonymous metrics
-NetBird server sends anonymous usage metrics by default. To disable, add
-`--disable-anonymous-metrics` flag to the server command in docker-compose.yml.
+Anonymous metrics are **disabled** via `--disable-anonymous-metrics` flag.
+To re-enable, remove the flag from docker-compose.yml server command.
+
+### 9. Authentik OIDC integration
+Authentik is configured as an external IdP through Dashboard → Settings → Identity Providers.
+Uses Confidential OIDC client with embedded Dex broker model (`Dashboard → Dex → Authentik`).
+- Callback: `https://netb.koorpa.ba/oauth2/callback`
+- Never edit `idp.db` connector table directly
+- Never change the Dex issuer from `https://netb.koorpa.ba/oauth2`
+- Authentik provider MUST have Encryption Key empty (JWS only, not JWE)
 
 ---
 

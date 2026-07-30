@@ -8,57 +8,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Security
-- **UFW firewall activated** — deny incoming, allow only: 2416/tcp, 80/tcp, 443/tcp, 3478/udp, 51820/udp
-- **SSH hardened** — `PermitRootLogin prohibit-password`, max 3 tries (password auth retained)
-- **Secret scan** — confirmed no secrets in git history
-- **Docker hardened** — `icc:false`, `no-new-privileges:true`, `userland-proxy:false`, `live-restore:true`
-- **fail2ban** — SSH brute-force protection on port 2416
-
 ### Added
-- **Auto-backup** — daily cron @ 02:00 UTC, 7-day retention
-- **Cert monitoring** — daily cron check for Let's Encrypt expiry
-- **2 GB swap** — swappiness=10
-- **Docker images pinned** — `:latest@sha256:...` for controlled upgrades
-- **Anonymous metrics disabled** — `--disable-anonymous-metrics` flag
-
-### Changed
-- **NetBird upgraded from v0.74.7 to v0.76.0** (via `:latest`)
-  - New: propagated auth grant types for combined server
-  - New: unified admin CLI for self-hosted helpers
-  - New: dashboard_features and agent_network_only account settings
-  - Migration: agent_network_request_usage cost aggregates
-  - No breaking changes for self-hosted deployments
-- Docker Compose: reverted to `:latest` tags (versioned tags not published on Docker Hub)
-
-### Added
-- **Authentik OIDC integration** via Settings → Identity Providers (embedded Dex broker model)
-  - Confidential OIDC client with Client Secret (JWS, no encryption)
+- **Authentik OIDC integration** via Settings → Identity Providers (embedded Dex broker)
+  - Confidential OIDC client (JWS, no encryption)
   - Callback: `https://netb.koorpa.ba/oauth2/callback`
   - Both local and Authentik login available
-  - Root cause fix: removed Encryption Key from Authentik provider to use JWS instead of JWE
-- Komodo Periphery agent for server management
-- Stack database reference documentation
-- Relative volume paths for docker-compose
+- **Komodo Periphery agent** v2.2.0 for server management
+- **Auto-backup** — daily cron @ 02:00 UTC, 7-day retention
+- **Cert monitoring** — daily cron @ 08:00 UTC, alerts at 14 days
+- **2 GB swap** — swappiness=10
+- **fail2ban** — SSH brute-force protection on port 2416
+- **Database reference** — encryption scheme, OIDC structure, user management
+- **NetBird admin user** — `admin@imtec.ba`
 
 ### Changed
-- Stack relocated from `/home/netb4521/` to `/opt/stacks/netbird/`
-- Docker volumes converted from named volumes to relative bind mounts (`./data/`)
-- `docker-compose.yml` and `traefik-dynamic.yaml` added to repository
-- `.env.example` updated with Dashboard and Komodo sections
+- **NetBird upgraded** from v0.74.7 to v0.76.0
+  - Propagated auth grant types for combined server
+  - Unified admin CLI for self-hosted helpers
+  - Migration: agent_network_request_usage cost aggregates
+- **Stack relocated** from `/home/netb4521/` to `/opt/stacks/netbird/`
+- **Docker volumes** converted to relative bind mounts (`./data/`)
+- **Docker images pinned** `:latest@sha256:...`
+- **Anonymous metrics** disabled via `--disable-anonymous-metrics`
 
 ### Security
-- SSH key added for `netb4521` user
-- NetBird admin user created (`admin@imtec.ba`)
-- Authentik OIDC integration attempted → **rolled back** to embedded IdP
-  - Root cause: Dex issuer mismatch + public client config incompatible with broker model
-  - Rollback: Restored `idp.db`, `config.yaml`, `dashboard.env` from backup
-  - Exposed `netbird-svc` App password revoked
+- **UFW firewall** activated — 2416/tcp, 80/tcp, 443/tcp, 3478/udp, 51820/udp
+- **SSH hardened** — `PermitRootLogin prohibit-password`, `MaxAuthTries 3`
+- **Docker hardened** — `icc:false`, `no-new-privileges:true`, `userland-proxy:false`, `live-restore:true`
+- **Secret scan** — confirmed clean, no secrets in git history
+- **Authentik OIDC** — first attempt rolled back, then successful via Dashboard UI
+- **`netbird-svc`** service account deleted after OIDC migration
 
 ### Infrastructure
-- NetBird server added to Komodo cluster (Periphery v2.2.0)
-- Docker cleanup: 3.4 GB reclaimed from unused images
-- Journal log cleanup: 2.3 GB reclaimed, retention set to 7 days
+- Docker cleanup: 3.4 GB reclaimed
+- Journal log cleanup: 2.3 GB reclaimed, retention 7 days
+- SSH key added for `netb4521` user
+- Disk: 4.9 GB / 38 GB (14%)
+
+### Repository
+- `docker-compose.yml` and `traefik-dynamic.yaml` added
+- `.env.example` updated with Dashboard, Komodo sections
+- Project structure updated in AGENTS.md
 
 ## [1.0.0] - 2025-04-16
 
@@ -69,7 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - NetBird Dashboard web UI
 - NetBird Proxy for WireGuard tunnel
 - Docker Compose orchestration
-- SSH key-based authentication on custom port
+- SSH key-based authentication on custom port (2416)
 - Automated Docker installation script (docker.sh)
 
 ### Infrastructure

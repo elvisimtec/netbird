@@ -152,11 +152,50 @@ All containers use `json-file` driver with rotation:
 - Max size: 500 MB per file
 - Max files: 2 per service
 
-## Monitoring
+## System Services
 
-- **Health Check:** `http://localhost:9000/health` (NetBird server)
-- **Metrics:** `http://localhost:9090/metrics` (NetBird server, internal only)
-- **Dashboard:** `https://netb.koorpa.ba` (if accessible, system is up)
+| Service | Purpose |
+|---------|---------|
+| **UFW** | Host firewall — allows only required ports |
+| **fail2ban** | SSH brute-force protection (port 2416) |
+| **Cron** | Daily backup (02:00) + cert monitoring (08:00) |
+| **Swap** | 2 GB, swappiness=10 |
+| **Komodo Periphery** | Server management agent |
+
+## Authentication
+
+| Method | Provider | Status |
+|--------|----------|--------|
+| **Local login** | Embedded Dex (email/password) | ✅ Active |
+| **Authentik OIDC** | `sso.imtec.ba` (Confidential client) | ✅ Active |
+
+Authentik integracija koristi embedded Dex broker model:
+`Dashboard → Dex (netb.koorpa.ba/oauth2) → Authentik`
+
+## Docker Hardening
+
+```json
+{
+  "icc": false,
+  "no-new-privileges": true,
+  "userland-proxy": false,
+  "live-restore": true
+}
+```
+
+## Backup
+
+- **Skripta:** `/opt/stacks/netbird/backup.sh`
+- **Cron:** daily @ 02:00 UTC
+- **Retencija:** 7 dana
+- **Sadržaj:** `store.db`, `idp.db`, configs, certs
+- **Log:** `/var/log/netbird-backup.log`
+
+## Cert Monitoring
+
+- **Skripta:** `/opt/stacks/netbird/check-cert.sh`
+- **Cron:** daily @ 08:00 UTC
+- **Log:** `/var/log/cert-check.log`
 
 ## Management
 
