@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- **UFW firewall activated** — deny incoming, allow only: 2416/tcp, 80/tcp, 443/tcp, 3478/udp, 51820/udp
+- **SSH hardened** — `PasswordAuthentication no`, `PermitRootLogin prohibit-password`, max 3 tries
+- **Secret scan** — confirmed no secrets in git history (config.yaml, proxy.env never committed)
+
 ### Changed
 - **NetBird upgraded from v0.74.7 to v0.76.0** (via `:latest`)
   - New: propagated auth grant types for combined server
