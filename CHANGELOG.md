@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Komodo Stack integration** — Git repo-based stack management
+  - Resource TOML: `resources/komodo-stack.toml` (repo + stack definicija)
+  - Migration script: `scripts/komodo-migration.sh` (backup, integrity check, checksums)
+  - Verification script: `scripts/komodo-verify.sh` (post-deploy provjere)
+  - Rollback script: `scripts/komodo-rollback.sh` (restauracija na ručno upravljanje)
+  - Docs: `docs/operations/komodo.md` (stack management vodič)
+  - Stack name `netbird`, ručni deploy, `auto_update = false`
 - **Authentik OIDC integration** via Settings → Identity Providers (embedded Dex broker)
   - Confidential OIDC client (JWS, no encryption)
   - Callback: `https://netb.koorpa.ba/oauth2/callback`

@@ -199,14 +199,33 @@ Authentik integracija koristi embedded Dex broker model:
 
 ## Management
 
+### Komodo Stack
+
+NetBird stack je pod Komodo upravljanjem. Stack definicija je u Git repo-u
+(`resources/komodo-stack.toml`), a deploy je ručni kroz Komodo UI.
+
+| Property | Value |
+|----------|-------|
+| **Core URL** | `https://komo-sso.imtec.ba` |
+| **Stack Name** | `netbird` |
+| **Project Name** | `netbird` |
+| **Repo** | `imtec/netbird` (git.imtec.ba) |
+| **Branch** | `main` |
+| **Run Directory** | `/opt/stacks/netbird` |
+| **Deploy Mode** | Ručni (manual, `auto_update = false`) |
+| **Alerts** | Uključeni (`send_alerts = true`) |
+
+**Secret fajlovi** (`config.yaml`, `dashboard.env`, `proxy.env`) i **data volumeni**
+(`data/`) su gitignored i nisu pod Git kontrolom. Komodo Git operacije ih ne diraju.
+
+Dokumentacija: [Komodo Stack Management](operations/komodo.md)
+
 ### Komodo Periphery
 
 Server je dodat u Komodo klaster za centralizovano upravljanje i monitoring.
 
 | Property | Value |
 |----------|-------|
-| **Core URL** | `https://komo-sso.imtec.ba` |
-| **Server Name** | `netbird` |
 | **Agent** | Komodo Periphery v2.2.0 |
 | **Service** | `periphery.service` (systemd, auto-start) |
 | **Config** | `/etc/komodo/periphery.config.toml` |
@@ -224,3 +243,14 @@ journalctl -u periphery -f
 # Restart
 systemctl restart periphery
 ```
+
+### Fallback: Ručno Upravljanje
+
+```bash
+cd /opt/stacks/netbird
+docker compose -p netbird up -d
+docker compose -p netbird ps
+```
+
+Komodo i ručni `docker compose` dijele isti `project_name` (`netbird`) —
+nema konflikta između alata.

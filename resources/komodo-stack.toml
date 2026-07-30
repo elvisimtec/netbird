@@ -1,0 +1,77 @@
+# Komodo Resource Definition — NetBird Stack
+#
+# Resource Sync TOML for importing the NetBird stack into Komodo.
+# Import: Komodo UI → Resources → Import TOML
+#
+# ⚠️  FIRST IMPORT: Use deploy = false (set below).
+#     Komodo will show proposed changes. Verify project_name, paths,
+#     and that it recognizes the existing compose project BEFORE deploying.
+#
+# Prerequisites:
+#   1. Komodo Core running at https://komo-sso.imtec.ba
+#   2. Server "NetBird" registered with Periphery agent
+#   3. Git account "imtec" configured in Komodo for git.imtec.ba
+#   4. Secret files present on server (see "Files NOT in repo" below)
+#
+# Directory structure on server:
+#   /opt/stacks/netbird/
+#   ├── runtime/           ← Persistent files (NOT in repo)
+#   │   ├── config.yaml
+#   │   ├── dashboard.env
+#   │   ├── proxy.env
+#   │   └── data/          ← Docker volumes (SQLite, certs)
+#   └── backups/           ← Pre-migration backups
+#
+# Files NOT in repo (must exist on server before deploy):
+#   - runtime/config.yaml      NetBird server config with secrets
+#   - runtime/dashboard.env    Dashboard OIDC + endpoint config
+#   - runtime/proxy.env        Proxy connection + TLS config
+#   - runtime/data/            Docker volume data (SQLite store.db, idp.db, certs)
+#
+# Safety guarantees:
+#   - Git pull/refresh/redeploy MUST NOT overwrite runtime/ files
+#   - runtime/ files are gitignored and live outside the repo checkout
+#   - docker-compose.yml uses absolute paths to runtime/
+
+# ─── Git Repository ───────────────────────────────────────────────────────────
+
+[[repo]]
+name = "netbird-repo"
+description = "NetBird infrastructure — GitLab"
+tags = ["production", "networking", "vpn"]
+[repo.config]
+server = "NetBird"
+repo = "imtec/netbird"
+git_provider = "git.imtec.ba"
+git_account = "imtec"
+branch = "main"
+path = "/opt/stacks/netbird"
+
+# ─── Docker Compose Stack ─────────────────────────────────────────────────────
+
+[[stack]]
+name = "netbird"
+description = "NetBird VPN Stack — Traefik, Dashboard, Server, Proxy"
+tags = ["production", "networking", "sso"]
+deploy = false                      # ⚠️ false for first import — verify first!
+
+[stack.config]
+server = "NetBird"
+git_provider = "git.imtec.ba"
+git_account = "imtec"
+repo = "imtec/netbird"
+branch = "main"
+file_paths = ["docker-compose.yml"]
+project_name = "netbird"            # CRITICAL: must match existing compose project
+run_directory = "/opt/stacks/netbird"  # compose runs from this directory
+
+# Manual deploy only — no auto-update, no deploy webhooks
+auto_update = false
+poll_for_updates = true             # show update indicator, but don't auto-deploy
+send_alerts = true
+
+# Quick links in resource header
+links = [
+  "https://netb.koorpa.ba",
+  "https://git.imtec.ba/imtec/netbird",
+]
