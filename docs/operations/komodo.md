@@ -10,14 +10,41 @@ NetBird stack je registrovan u Komodo-u sa sljedećom konfiguracijom:
 | Resurs | Vrijednost |
 |--------|-----------|
 | **Core URL** | `https://komo-sso.imtec.ba` |
-| **Server** | `NetBird` |
+| **Server** | `netbird` (v2.2.0, systemd) |
 | **Stack Name** | `netbird` |
 | **Project Name** | `netbird` |
 | **Repo** | `imtec/netbird` (git.imtec.ba) |
 | **Branch** | `main` |
+| **Clone Path** | `/opt/stacks/netbird` |
 | **Run Directory** | `/opt/stacks/netbird` |
+| **File Paths** | `docker-compose.yml` |
 | **Deploy Mode** | Ručni (manual) |
-| **Auto Update** | Isključen |
+| **Auto Update** | Isključen (`auto_update = false`) |
+| **Webhook** | Isključen |
+| **Destroy Before Deploy** | Isključen |
+| **Pre Pull Images** | Uključen |
+
+## Historija migracije
+
+Migracija izvršena **2026-07-30**.
+
+**Prije migracije:**
+- Stack pokrenut ručno preko `docker compose -p netbird up -d`
+- `/opt/stacks/netbird` nije bio Git repo (fajlovi ručno kopirani)
+
+**Tokom migracije:**
+1. Inicijaliziran Git u `/opt/stacks/netbird` (bundle transfer sa lokalnog repo-a)
+2. SQLite integrity check: `store.db` → `ok`, `idp.db` → `ok`
+3. Stack kreiran u Komodo UI-ju (nije korišten Resource Sync)
+4. Komodo Git clone na `/opt/stacks/netbird` (prepoznao postojeći working tree)
+5. `docker compose stop` → Komodo Deploy
+6. Komodo prepoznao postojeći `netbird` compose projekat (nije kreirao paralelni stack)
+
+**Downtime:**
+- `netbird-server`: **0s** (nije restartovan)
+- `netbird-traefik`: ~2s
+- `netbird-dashboard`: ~2s
+- `netbird-proxy`: ~2s (peerovi se reconnectali unutar 2 sekunde)
 
 ## Arhitektura
 

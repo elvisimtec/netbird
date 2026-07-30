@@ -9,13 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- **Komodo Stack integration** — Git repo-based stack management
-  - Resource TOML: `resources/komodo-stack.toml` (repo + stack definicija)
-  - Migration script: `scripts/komodo-migration.sh` (backup, integrity check, checksums)
-  - Verification script: `scripts/komodo-verify.sh` (post-deploy provjere)
-  - Rollback script: `scripts/komodo-rollback.sh` (restauracija na ručno upravljanje)
-  - Docs: `docs/operations/komodo.md` (stack management vodič)
-  - Stack name `netbird`, ručni deploy, `auto_update = false`
+- **Komodo Stack integration** — Stack migrated to Komodo management (2026-07-30)
+  - Stack `netbird` live at `https://komo-sso.imtec.ba/stacks` (state: RUNNING)
+  - Server: `netbird` (Periphery v2.2.0, systemd, OK)
+  - Git repo: `imtec/netbird` on `git.imtec.ba`, branch `main`
+  - Clone path: `/opt/stacks/netbird` (existing working tree, gitignored secrets preserved)
+  - Project name: `netbird` (Komodo recognized existing compose project, no parallel stack)
+  - Deploy: manual only (`auto_update = false`, webhook disabled)
+  - Minimal downtime: only proxy/traefik restarted (~2s), server untouched
+  - All peer reconnections within 2 seconds, gRPC SignalExchange traffic confirmed
+  - Auto-restart: `unless-stopped` + Docker `live-restore: true` + systemd enabled
+  - Resource TOML: `resources/komodo-stack.toml`
+  - Scripts: `scripts/komodo-migration.sh`, `komodo-verify.sh`, `komodo-rollback.sh`
+  - Docs: `docs/operations/komodo.md` (daily ops, troubleshooting, rollback)
 - **Authentik OIDC integration** via Settings → Identity Providers (embedded Dex broker)
   - Confidential OIDC client (JWS, no encryption)
   - Callback: `https://netb.koorpa.ba/oauth2/callback`
