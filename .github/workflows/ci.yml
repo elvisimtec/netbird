@@ -24,7 +24,7 @@ jobs:
           echo "NB_DOMAIN=ci" > dashboard.env
           echo "NB_PROXY_TOKEN=ci" > proxy.env
 
-      - name: Validate Docker Compose syntax
+      - name: Validate Docker Compose structure
         run: |
           docker compose -f docker-compose.yml config --quiet
         continue-on-error: false
