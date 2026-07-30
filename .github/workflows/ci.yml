@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Configuration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Validate Docker Compose syntax
+        run: |
+          docker compose -f docker-compose.yml config --quiet
+        continue-on-error: false
+
+  lint:
+    name: Lint Files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Lint YAML files
+        uses: ibiqlik/action-yamllint@2576378a8e2611e9456d2db9e3f0a5fb3c1e266a # v3.1.1
+        with:
+          config_data: |
+            extends: default
+            rules:
+              line-length: disable
+              document-start: disable
+              truthy: disable
+
+      - name: Lint Markdown files
+        uses: DavidAnson/markdownlint-cli2-action@05f32210e844428042e117c0726174daae01ab0a # v19.0.2
+        with:
+          globs: '**/*.md'
+        continue-on-error: true
+
+  check-secrets:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Check for potential secrets in tracked files
+        run: |
+          ! grep -rE 'NB_PROXY_TOKEN\s*=\s*[a-zA-Z0-9_\-]{10,}|authSecret:\s*[a-zA-Z0-9+/=]{20,}|encryptionKey:\s*[a-zA-Z0-9+/=]{20,}' \
+            --include='*.yml' --include='*.yaml' --include='*.md' --include='*.env' \
+            . || (echo "ERROR: Potential secrets found in tracked files!" && exit 1)
+
+  all-checks-pass:
+    name: All Checks Pass
+    needs: [validate, lint, check-secrets]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check results
+        run: |
+          if [[ "${{ needs.validate.result }}" != "success" ]]; then
+            echo "Validate failed"
+            exit 1
+          fi
+          if [[ "${{ needs.lint.result }}" != "success" ]]; then
+            echo "Lint failed"
+            exit 1
+          fi
+          if [[ "${{ needs.check-secrets.result }}" != "success" ]]; then
+            echo "Secret check failed"
+            exit 1
+          fi
+          echo "All checks passed!"

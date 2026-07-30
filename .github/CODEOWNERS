@@ -1,0 +1,26 @@
+# Code Owners — NetBird Infrastructure
+
+# Global owners (fallback for everything)
+* @imtecelvis
+
+# Security-sensitive files
+SECURITY.md @imtecelvis
+.github/workflows/security-scan.yml @imtecelvis
+
+# Core configuration
+docker-compose.yml @imtecelvis
+config.yaml @imtecelvis
+dashboard.env @imtecelvis
+proxy.env @imtecelvis
+
+# CI/CD
+.github/workflows/ @imtecelvis
+.gitlab-ci.yml @imtecelvis
+Makefile @imtecelvis
+
+# Documentation (anyone can review)
+docs/ @imtecelvis
+README.md @imtecelvis
+CONTRIBUTING.md @imtecelvis
+CODE_OF_CONDUCT.md @imtecelvis
+CHANGELOG.md @imtecelvis

@@ -1,0 +1,58 @@
+# GitLab CI/CD Pipeline for NetBird Infrastructure
+
+stages:
+  - validate
+  - lint
+  - security
+
+# ─── Validate Stage ───────────────────────────────────────────────────────────
+
+validate-compose:
+  stage: validate
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker compose -f docker-compose.yml config --quiet
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# ─── Lint Stage ───────────────────────────────────────────────────────────────
+
+lint-yaml:
+  stage: lint
+  image: python:3.12-alpine
+  before_script:
+    - pip install yamllint
+  script:
+    - yamllint -d "{extends: default, rules: {line-length: disable, document-start: disable, truthy: disable}}" docker-compose.yml config.yaml .gitlab-ci.yml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+lint-markdown:
+  stage: lint
+  image: node:20-alpine
+  before_script:
+    - npm install -g markdownlint-cli2
+  script:
+    - markdownlint-cli2 "**/*.md" || true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# ─── Security Stage ───────────────────────────────────────────────────────────
+
+secret-detection:
+  stage: security
+  image: python:3.12-alpine
+  script:
+    - |
+      echo "Scanning for potential secrets in tracked files..."
+      if grep -rE 'NB_PROXY_TOKEN\s*=\s*[a-zA-Z0-9_\-]{10,}|authSecret:\s*[a-zA-Z0-9+/=]{20,}|encryptionKey:\s*[a-zA-Z0-9+/=]{20,}' \
+        --include='*.yml' --include='*.yaml' --include='*.md' --include='*.env' \
+        . 2>/dev/null; then
+        echo "ERROR: Potential secrets found in tracked files!"
+        exit 1
+      fi
+      echo "No secrets found."
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "merge_request_event"

@@ -1,0 +1,36 @@
+name: "📚 Documentation Issue"
+description: Report an issue with or suggest an improvement to documentation
+labels: ["documentation", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Documentation is crucial! Thanks for helping us improve it.
+
+  - type: input
+    id: page
+    attributes:
+      label: Affected Page(s)
+      description: Which documentation page(s) need attention?
+      placeholder: "e.g., docs/operations/backup-restore.md"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: What's wrong, missing, or unclear?
+      placeholder: "e.g., The backup procedure doesn't mention that SQLite requires stopping the server first..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Changes
+      description: How would you improve it?
+      placeholder: "e.g., Add a warning note about stopping the server, and provide the exact sqlite3 command..."
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context

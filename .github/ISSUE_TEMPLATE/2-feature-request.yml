@@ -1,0 +1,52 @@
+name: "✨ Feature Request"
+description: Suggest a new feature or improvement
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! Please provide as much detail as you can.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem would this feature solve?
+      placeholder: "e.g., I need to monitor NetBird server metrics because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see.
+      placeholder: "e.g., Add a Prometheus exporter sidecar container that scrapes the metrics endpoint..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What alternatives have you considered?
+      placeholder: "e.g., Using docker logs parsing instead of Prometheus..."
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: What does this feature affect?
+      options:
+        - New service / container
+        - Existing service configuration
+        - Documentation
+        - Makefile / tooling
+        - CI/CD pipeline
+        - Other
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information, links, or screenshots.

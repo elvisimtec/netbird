@@ -1,0 +1,60 @@
+# Environment files (contain secrets)
+.env
+*.env
+!.env.example
+
+# SSH keys
+*.pem
+*.key
+id_rsa*
+!id_rsa.pub
+
+# Docker volumes and data
+docker-volumes/
+data/
+
+# Let's Encrypt
+acme.json
+letsencrypt/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+backup-*.tar.gz
+backup-*.sql
+
+# Logs
+*.log
+logs/
+
+# Terraform
+.terraform/
+terraform.tfstate*
+
+# Certificates
+certs/
+*.crt
+*.cer
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ZCode
+.zcode/
+
+# Node
+node_modules/

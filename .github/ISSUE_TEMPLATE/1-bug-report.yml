@@ -1,0 +1,93 @@
+name: "🐛 Bug Report"
+description: Report a bug in the NetBird infrastructure deployment
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        Before submitting, please:
+        - Search [existing issues](https://github.com/elvisimtec/netbird/issues) to avoid duplicates
+        - Verify this is a deployment issue, not an upstream NetBird bug
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of the bug.
+      placeholder: "e.g., Traefik fails to obtain Let's Encrypt certificate after restart"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the behavior.
+      placeholder: |
+        1. Run 'docker compose up -d'
+        2. Wait 30 seconds
+        3. Check 'docker compose logs traefik'
+        4. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected Component
+      multiple: true
+      options:
+        - Traefik (reverse proxy)
+        - NetBird Server
+        - NetBird Dashboard
+        - NetBird Proxy
+        - Docker Compose
+        - Makefile / Tooling
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS Version
+      description: Which Ubuntu version is the server running?
+      placeholder: "Ubuntu 24.04.4 LTS"
+
+  - type: input
+    id: docker-version
+    attributes:
+      label: Docker Version
+      description: Output of `docker --version`
+      placeholder: "Docker version 29.6.1"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs
+      description: Paste relevant log output. Use code blocks (```) for formatting.
+      render: shell
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information that might help.

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "❓ Question / General Support"
+    url: https://github.com/elvisimtec/netbird/discussions
+    about: Please ask questions in GitHub Discussions.
+  - name: "📖 NetBird Documentation"
+    url: https://docs.netbird.io
+    about: Check the official NetBird documentation.
+  - name: "🐛 Upstream NetBird Bug"
+    url: https://github.com/netbirdio/netbird/issues
+    about: For bugs in NetBird itself (not deployment), report upstream.
