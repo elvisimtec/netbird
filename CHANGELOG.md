@@ -59,6 +59,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disk: 4.9 GB / 38 GB (14%)
 
 ### Fixed
+- **Stale Issue Management workflow** — failing daily with `Unable to resolve action actions/stale@5bef64b6...`
+  - Pinned SHA `5bef64b6d7a8efe2d27455c3ba9e719c0830e1ee` (labeled `v11.0.1`) does not exist upstream
+  - Re-pinned to real `v11.0.0` commit `4391f3da665fdf50b6810c1a66712fb9ba21aa93`
 - **CI pipeline** — validate and lint jobs now pass correctly
   - Replaced broken GitHub Action SHA pins (`ibiqlik/action-yamllint`, `DavidAnson/markdownlint-cli2-action`) with inline `pip`/`npm` installs
   - Validate job now creates stub `config.yaml`/`*.env` files before `docker compose config`
