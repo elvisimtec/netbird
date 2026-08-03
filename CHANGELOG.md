@@ -64,6 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `gitleaks/gitleaks-action` pinned SHA `83373cf2f8c4f819...` (labeled `v2.3.7`) does not exist → re-pinned to real `v2.3.7` commit `83373cf2f8c4db6e24b41c1a9b086bb9619e9cd3`
   - `actions/dependency-review-action` pinned SHA `4081bf99...` (labeled `v4.6.0`) does not exist → re-pinned to real `v4.6.0` commit `ce3cf9537a52e8119d91fd484ab5b8a807627bf8` (job was skipped on schedule runs, would fail on PRs)
   - Added `issues: write` permission — gitleaks-action files a leak-report issue on findings
+  - CodeQL `languages: yaml` is not a supported identifier → changed to `actions` (analyzes GitHub Actions workflows, per `src/languages.ts` of codeql-action)
 - **Stale Issue Management workflow** — failing daily with `Unable to resolve action actions/stale@5bef64b6...`
   - Pinned SHA `5bef64b6d7a8efe2d27455c3ba9e719c0830e1ee` (labeled `v11.0.1`) does not exist upstream
   - Re-pinned to real `v11.0.0` commit `4391f3da665fdf50b6810c1a66712fb9ba21aa93`
