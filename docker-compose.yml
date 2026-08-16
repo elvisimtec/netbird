@@ -49,7 +49,7 @@ services:
 
   # UI dashboard
   dashboard:
-    image: netbirdio/dashboard:latest@sha256:6b3df5d07cbcf8fb81a6a18bb99fadb220e66a554c0e0fe71cd17a93c15769b1
+    image: netbirdio/dashboard:latest
     container_name: netbird-dashboard
     restart: unless-stopped
     networks: [netbird]
@@ -72,7 +72,7 @@ services:
 
   # Combined server (Management + Signal + Relay + STUN)
   netbird-server:
-    image: netbirdio/netbird-server:latest@sha256:3f08491f06864ba69bd6f596e99bb98647023b79edbcd0352ed928c899fd267a
+    image: netbirdio/netbird-server:latest
     container_name: netbird-server
     restart: unless-stopped
     networks: [netbird]
@@ -110,7 +110,7 @@ services:
 
   # NetBird Proxy - exposes internal resources to the internet
   proxy:
-    image: netbirdio/reverse-proxy:latest@sha256:25589a98790d209742896d8f87a882d399619b1f1f43db0412bd1b2631defe9e
+    image: netbirdio/reverse-proxy:latest
     container_name: netbird-proxy
     ports:
       - 51820:51820/udp
