@@ -35,6 +35,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **NetBird admin user** — `admin@imtec.ba`
 
 ### Changed
+- **NetBird images unpinned** — `docker-compose.yml` now tracks `latest`
+  tags instead of `latest@sha256:...` digests (accepts GitLab commit cc8c120)
+- **Server git remote token rotated** — `/opt/stacks/netbird` now uses the
+  active `komodo-sync` PAT (id 59) instead of the revoked `glpat-YjEKF...`
 - **NetBird upgraded** from v0.74.7 to v0.76.0
   - Propagated auth grant types for combined server
   - Unified admin CLI for self-hosted helpers
