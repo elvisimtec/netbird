@@ -16,7 +16,7 @@ This guide covers deploying the NetBird infrastructure from scratch.
 
 ### External Requirements
 
-1. **Domain name** pointing to server IP (`netb.koorpa.ba` → server IP)
+1. **Domain name** pointing to server IP (`netb.imtec.ba` → server IP)
 2. **SSH access** with key-based authentication
 3. **Firewall rules** allowing ports: 80, 443, 3478/udp, 51820/udp
 
@@ -141,7 +141,7 @@ Update the domain in the Traefik configuration:
 - "--certificatesresolvers.letsencrypt.acme.email=admin@<your-domain>"
 ```
 
-And in all Traefik labels, replace `netb.koorpa.ba` with your domain.
+And in all Traefik labels, replace `netb.imtec.ba` with your domain.
 
 ## Step 4: Deploy
 

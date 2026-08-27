@@ -182,10 +182,10 @@ The same UUID is used as `user_id` in `idp.db/password`.
 
 ## Dashboard Access
 
-- URL: `https://netb.koorpa.ba`
+- URL: `https://netb.imtec.ba`
 - Auth: OIDC Authorization Code flow with PKCE
 - Client: `netbird-dashboard` (public, no secret)
-- OIDC Issuer: `https://netb.koorpa.ba/oauth2`
+- OIDC Issuer: `https://netb.imtec.ba/oauth2`
 
 ### Login Flow
 

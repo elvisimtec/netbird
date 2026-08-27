@@ -57,9 +57,9 @@ as the reverse proxy.
 
 | Priority | Router | Rule | Backend |
 |----------|--------|------|---------|
-| 100 | netbird-grpc | `Host(netb.koorpa.ba) && PathPrefix(/signalexchange..., /management...)` | Server (h2c) |
-| 100 | netbird-backend | `Host(netb.koorpa.ba) && PathPrefix(/relay, /ws-proxy, /api, /oauth2)` | Server (HTTP) |
-| 1 | netbird-dashboard | `Host(netb.koorpa.ba)` | Dashboard |
+| 100 | netbird-grpc | `Host(netb.imtec.ba) && PathPrefix(/signalexchange..., /management...)` | Server (h2c) |
+| 100 | netbird-backend | `Host(netb.imtec.ba) && PathPrefix(/relay, /ws-proxy, /api, /oauth2)` | Server (HTTP) |
+| 1 | netbird-dashboard | `Host(netb.imtec.ba)` | Dashboard |
 | 1 (TCP) | proxy-passthrough | `HostSNI(*)` | Proxy (TLS passthrough) |
 
 The high-priority gRPC and backend routes are matched first. The dashboard
@@ -71,7 +71,7 @@ rule handles WireGuard tunnel connections.
 - **Role:** Combined Management + Signal + Relay + STUN
 - **Internal Ports:** 80 (HTTP/gRPC), 9000 (health), 9090 (metrics), 3478/udp (STUN)
 - **Data:** SQLite at `/var/lib/netbird/store.db`
-- **OIDC:** Embedded identity provider at `https://netb.koorpa.ba/oauth2`
+- **OIDC:** Embedded identity provider at `https://netb.imtec.ba/oauth2`
 
 **Key Configuration:**
 - Auth: PKCE with sign key refresh enabled
@@ -120,7 +120,7 @@ Internal Docker Network (172.30.0.0/24)
 ```
 Agent ──TLS──► Traefik :443 ──h2c──► Server :80
 ```
-Agents connect to `https://netb.koorpa.ba:443` via gRPC. Traefik terminates TLS
+Agents connect to `https://netb.imtec.ba:443` via gRPC. Traefik terminates TLS
 and forwards to the server using HTTP/2 cleartext (h2c).
 
 ### Dashboard Access (HTTPS)
@@ -170,7 +170,7 @@ All containers use `json-file` driver with rotation:
 | **Authentik OIDC** | `sso.imtec.ba` (Confidential client) | ✅ Active |
 
 Authentik integracija koristi embedded Dex broker model:
-`Dashboard → Dex (netb.koorpa.ba/oauth2) → Authentik`
+`Dashboard → Dex (netb.imtec.ba/oauth2) → Authentik`
 
 ## Docker Hardening
 

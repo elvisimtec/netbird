@@ -37,7 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - **Domain migration** — Traefik routers and ACME email moved from
   `koorpa.ba` to `imtec.ba` (`netb.imtec.ba`, `admin@imtec.ba`);
-  accepted GitLab commit 76d8594
+  accepted GitLab commit 76d8594; all current-state docs updated
+  (AGENTS, README, docs/*) — server-only configs verified 100% migrated
 - **Docs** — `AGENTS.md` and `README.md` now point contributors to the shared
   `../Settings/SETTINGS.md`; `.env.example` key renamed
   `komodo_api_key` → `komodo_onboarding_key` (it is a Periphery onboarding

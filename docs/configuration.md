@@ -57,7 +57,7 @@ the Traefik container itself.
 | `--providers.docker.network` | `netbird` | Docker network to watch |
 | `--entrypoints.web.address` | `:80` | HTTP entrypoint |
 | `--entrypoints.websecure.address` | `:443` | HTTPS entrypoint |
-| `--certificatesresolvers.letsencrypt.acme.email` | `admin@koorpa.ba` | Let's Encrypt contact email |
+| `--certificatesresolvers.letsencrypt.acme.email` | `admin@imtec.ba` | Let's Encrypt contact email |
 | `--certificatesresolvers.letsencrypt.acme.storage` | `/letsencrypt/acme.json` | Certificate storage |
 | `--certificatesresolvers.letsencrypt.acme.tlschallenge` | `true` | Use TLS challenge |
 
@@ -132,7 +132,7 @@ proxy:
 ```yaml
 server:
   listenAddress: ":80"
-  exposedAddress: "https://netb.koorpa.ba:443"
+  exposedAddress: "https://netb.imtec.ba:443"
   stunPorts:
     - 3478
   metricsPort: 9090
@@ -157,11 +157,11 @@ server:
 server:
   authSecret: "<base64-secret>"
   auth:
-    issuer: "https://netb.koorpa.ba/oauth2"
+    issuer: "https://netb.imtec.ba/oauth2"
     signKeyRefreshEnabled: true
     dashboardRedirectURIs:
-      - "https://netb.koorpa.ba/nb-auth"
-      - "https://netb.koorpa.ba/nb-silent-auth"
+      - "https://netb.imtec.ba/nb-auth"
+      - "https://netb.imtec.ba/nb-silent-auth"
     cliRedirectURIs:
       - "http://localhost:53000/"
 ```
@@ -205,12 +205,12 @@ Must match Traefik's static IP on the internal Docker network.
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `NETBIRD_MGMT_API_ENDPOINT` | `https://netb.koorpa.ba` | Management API URL |
-| `NETBIRD_MGMT_GRPC_API_ENDPOINT` | `https://netb.koorpa.ba` | gRPC API URL |
+| `NETBIRD_MGMT_API_ENDPOINT` | `https://netb.imtec.ba` | Management API URL |
+| `NETBIRD_MGMT_GRPC_API_ENDPOINT` | `https://netb.imtec.ba` | gRPC API URL |
 | `AUTH_AUDIENCE` | `netbird-dashboard` | OIDC audience |
 | `AUTH_CLIENT_ID` | `netbird-dashboard` | OIDC client ID |
 | `AUTH_CLIENT_SECRET` | (empty) | OIDC client secret (empty for PKCE) |
-| `AUTH_AUTHORITY` | `https://netb.koorpa.ba/oauth2` | OIDC provider URL |
+| `AUTH_AUTHORITY` | `https://netb.imtec.ba/oauth2` | OIDC provider URL |
 | `USE_AUTH0` | `false` | Use Auth0 instead of embedded IdP |
 | `AUTH_SUPPORTED_SCOPES` | `openid profile email groups` | OIDC scopes |
 | `AUTH_REDIRECT_URI` | `/nb-auth` | Auth callback path |
@@ -227,7 +227,7 @@ Must match Traefik's static IP on the internal Docker network.
 | `NB_PROXY_DEBUG_LOGS` | `false` | Enable debug logging |
 | `NB_PROXY_MANAGEMENT_ADDRESS` | `http://netbird-server:80` | Internal management URL |
 | `NB_PROXY_ALLOW_INSECURE` | `true` | Allow non-TLS to internal management |
-| `NB_PROXY_DOMAIN` | `netb.koorpa.ba` | Public domain |
+| `NB_PROXY_DOMAIN` | `netb.imtec.ba` | Public domain |
 | `NB_PROXY_ADDRESS` | `:8443` | Proxy listen address |
 | `NB_PROXY_TOKEN` | (required) | Proxy registration token |
 | `NB_PROXY_CERTIFICATE_DIRECTORY` | `/certs` | TLS certificate storage |

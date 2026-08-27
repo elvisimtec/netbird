@@ -14,7 +14,7 @@ infrastructure project.
 - **Repository:** `elvisimtec/netbird`
 - **Infrastructure:** Hetzner VPS, Ubuntu 24.04 LTS, Docker Compose
 - **Stack Path:** `/opt/stacks/netbird/`
-- **Domain:** `netb.koorpa.ba`
+- **Domain:** `netb.imtec.ba`
 - **License:** MIT
 - **Upstream:** [netbirdio/netbird](https://github.com/netbirdio/netbird) (BSD 3-Clause)
 
@@ -233,9 +233,9 @@ To re-enable, remove the flag from docker-compose.yml server command.
 ### 9. Authentik OIDC integration
 Authentik is configured as an external IdP through Dashboard → Settings → Identity Providers.
 Uses Confidential OIDC client with embedded Dex broker model (`Dashboard → Dex → Authentik`).
-- Callback: `https://netb.koorpa.ba/oauth2/callback`
+- Callback: `https://netb.imtec.ba/oauth2/callback`
 - Never edit `idp.db` connector table directly
-- Never change the Dex issuer from `https://netb.koorpa.ba/oauth2`
+- Never change the Dex issuer from `https://netb.imtec.ba/oauth2`
 - Authentik provider MUST have Encryption Key empty (JWS only, not JWE)
 
 ---
@@ -296,7 +296,7 @@ docker compose ps
 curl -s http://localhost:9000/health
 
 # Test Dashboard accessibility
-curl -s -o /dev/null -w "%{http_code}" https://netb.koorpa.ba
+curl -s -o /dev/null -w "%{http_code}" https://netb.imtec.ba
 
 # Check gRPC connectivity
 # (requires netbird client or grpcurl)

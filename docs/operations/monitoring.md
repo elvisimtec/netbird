@@ -98,8 +98,8 @@ docker system df
 |----------|-----|-------------|
 | Health Check | `http://localhost:9000/health` | NetBird server health |
 | Metrics | `http://localhost:9090/metrics` | Prometheus metrics (internal) |
-| Dashboard | `https://netb.koorpa.ba` | Web UI |
-| API | `https://netb.koorpa.ba/api` | Management REST API |
+| Dashboard | `https://netb.imtec.ba` | Web UI |
+| API | `https://netb.imtec.ba/api` | Management REST API |
 
 ### Health Check
 
@@ -134,11 +134,11 @@ and connect it to the `netbird` network.
 | Condition | Check | Threshold |
 |-----------|-------|-----------|
 | Server down | `curl -sf http://localhost:9000/health` | Fails |
-| Dashboard unreachable | `curl -sf -o /dev/null -w "%{http_code}" https://netb.koorpa.ba` | Not 200 |
+| Dashboard unreachable | `curl -sf -o /dev/null -w "%{http_code}" https://netb.imtec.ba` | Not 200 |
 | High log error rate | `docker compose logs --since 5m 2>&1 \| grep -c ERROR` | >10 |
 | Disk space low | `df -h / \| awk 'NR==2 {print $5}'` | >80% |
 | Container restarting | `docker compose ps \| grep -c Restarting` | >0 |
-| SSL certificate expiry | `echo \| openssl s_client -servername netb.koorpa.ba -connect netb.koorpa.ba:443 2>/dev/null \| openssl x509 -noout -dates` | <7 days |
+| SSL certificate expiry | `echo \| openssl s_client -servername netb.imtec.ba -connect netb.imtec.ba:443 2>/dev/null \| openssl x509 -noout -dates` | <7 days |
 
 ### Simple Alert Script
 
@@ -146,7 +146,7 @@ and connect it to the `netbird` network.
 #!/bin/bash
 # /opt/netbird/monitor.sh — basic health check with alerts
 
-HOST="https://netb.koorpa.ba"
+HOST="https://netb.imtec.ba"
 
 # Check health
 if ! curl -sf http://localhost:9000/health > /dev/null; then

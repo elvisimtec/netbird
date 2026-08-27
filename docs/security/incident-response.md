@@ -141,7 +141,7 @@ make health-check
 docker compose logs --since 1h | grep -E "unauthorized|error"
 
 # Verify TLS certificates are valid
-echo | openssl s_client -servername netb.koorpa.ba -connect netb.koorpa.ba:443 2>/dev/null | openssl x509 -noout -dates
+echo | openssl s_client -servername netb.imtec.ba -connect netb.imtec.ba:443 2>/dev/null | openssl x509 -noout -dates
 ```
 
 ### 7. Post-Incident
@@ -209,7 +209,7 @@ docker compose up -d traefik
 docker compose logs traefik | grep -i acme
 
 # 3. Verify new certs
-echo | openssl s_client -servername netb.koorpa.ba -connect netb.koorpa.ba:443 2>/dev/null | openssl x509 -noout -dates -issuer
+echo | openssl s_client -servername netb.imtec.ba -connect netb.imtec.ba:443 2>/dev/null | openssl x509 -noout -dates -issuer
 ```
 
 ## Communication Templates
@@ -245,7 +245,7 @@ Subject: Security Incident Affecting NetBird VPN Service
 Dear NetBird users,
 
 We are writing to inform you of a security incident affecting the
-NetBird VPN service at netb.koorpa.ba.
+NetBird VPN service at netb.imtec.ba.
 
 What happened:
 <clear, factual description>

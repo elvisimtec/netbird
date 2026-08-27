@@ -178,7 +178,7 @@ docker compose exec dashboard wget -qO- http://netbird-server:80/api/health
 #   AUTH_SILENT_REDIRECT_URI=/nb-silent-auth
 
 # Check the domain matches in ALL places
-grep -r "netb.koorpa.ba" *.yml *.yaml *.env
+grep -r "netb.imtec.ba" *.yml *.yaml *.env
 ```
 
 ---
@@ -216,11 +216,11 @@ nc -u -v <server-ip> 51820
 
 ```bash
 # Check DNS on server
-nslookup netb.koorpa.ba
-dig netb.koorpa.ba
+nslookup netb.imtec.ba
+dig netb.imtec.ba
 
 # Check from inside containers
-docker compose exec netbird-server nslookup netb.koorpa.ba
+docker compose exec netbird-server nslookup netb.imtec.ba
 ```
 
 ### STUN not working

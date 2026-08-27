@@ -26,7 +26,7 @@ with automatic TLS, reverse proxy, and containerized services.
                           ┌────────────▼─────────────┐
                           │   Traefik Reverse Proxy   │
                           │   (TLS via Let's Encrypt) │
-                          │   netb.koorpa.ba          │
+                          │   netb.imtec.ba          │
                           └──┬───────┬───────┬───────┘
                              │       │       │
                     ┌────────▼──┐ ┌──▼────┐ ┌▼─────────┐
@@ -56,7 +56,7 @@ with automatic TLS, reverse proxy, and containerized services.
 
 ## Quick Links
 
-- **Dashboard:** [https://netb.koorpa.ba](https://netb.koorpa.ba)
+- **Dashboard:** [https://netb.imtec.ba](https://netb.imtec.ba)
 - **Upstream NetBird:** [https://github.com/netbirdio/netbird](https://github.com/netbirdio/netbird)
 - **NetBird Docs:** [https://docs.netbird.io](https://docs.netbird.io)
 
@@ -70,7 +70,7 @@ with automatic TLS, reverse proxy, and containerized services.
 | **Architecture** | x86-64 |
 | **Docker** | 29.6.1 |
 | **Docker Compose** | v5.3.1 |
-| **Domain** | netb.koorpa.ba |
+| **Domain** | netb.imtec.ba |
 | **Internal Network** | 172.30.0.0/24 |
 
 ## Directory Structure
