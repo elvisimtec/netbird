@@ -8,6 +8,8 @@ infrastructure project.
 
 ## Project Identity
 
+> ⚙️ **Before working, read [`../Settings/SETTINGS.md`](../Settings/SETTINGS.md)** and follow the instructions and information it contains — access credentials and operational guidelines (SSH/SCP, Cloudflare, Docker stacks).
+
 - **Project:** NetBird Infrastructure — self-hosted secure private networking
 - **Repository:** `elvisimtec/netbird`
 - **Infrastructure:** Hetzner VPS, Ubuntu 24.04 LTS, Docker Compose

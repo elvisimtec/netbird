@@ -35,6 +35,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **NetBird admin user** — `admin@imtec.ba`
 
 ### Changed
+- **Docs** — `AGENTS.md` and `README.md` now point contributors to the shared
+  `../Settings/SETTINGS.md`; `.env.example` key renamed
+  `komodo_api_key` → `komodo_onboarding_key` (it is a Periphery onboarding
+  key, not a Komodo Core API key)
 - **NetBird images unpinned** — `docker-compose.yml` now tracks `latest`
   tags instead of `latest@sha256:...` digests (accepts GitLab commit cc8c120)
 - **Server git remote token rotated** — `/opt/stacks/netbird` now uses the

@@ -8,6 +8,12 @@ with automatic TLS, reverse proxy, and containerized services.
 
 ---
 
+## ⚙️ Settings
+
+> Before working, **read and use the instructions and information in
+> [`../Settings/SETTINGS.md`](../Settings/SETTINGS.md)** — access
+> credentials and operational guidelines (SSH/SCP, Cloudflare, Docker stacks).
+
 ## Architecture
 
 ```
